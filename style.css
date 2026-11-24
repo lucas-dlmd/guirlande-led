@@ -1,0 +1,244 @@
+:root {
+    --bg1: #050b1f;
+    --bg2: #0d1b3e;
+    --red: #ff3b4e;
+    --green: #2dff8a;
+    --gold: #ffc940;
+    --blue: #3bb8ff;
+    --pink: #ff5fd2;
+    --text: #f4f7ff;
+    --muted: #8ea0c9;
+    --glass: rgba(255, 255, 255, 0.07);
+    --glass-border: rgba(255, 255, 255, 0.16);
+}
+
+* { box-sizing: border-box; margin: 0; }
+
+html, body { min-height: 100%; }
+
+body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    color: var(--text);
+    background:
+        radial-gradient(ellipse at 50% 0%, #1b3a7a55 0%, transparent 60%),
+        linear-gradient(180deg, var(--bg2), var(--bg1) 70%);
+    background-attachment: fixed;
+    padding: calc(env(safe-area-inset-top, 0px) + 0px) 1.2rem calc(env(safe-area-inset-bottom, 0px) + 2rem);
+    overflow-x: hidden;
+}
+
+/* ---------- Neige ---------- */
+body::before, body::after {
+    content: "";
+    position: fixed;
+    inset: -100% 0 0 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image:
+        radial-gradient(3px 3px at 10% 20%, #fff 50%, transparent 52%),
+        radial-gradient(2px 2px at 30% 60%, #fff 50%, transparent 52%),
+        radial-gradient(4px 4px at 50% 10%, #fff 50%, transparent 52%),
+        radial-gradient(2px 2px at 70% 80%, #fff 50%, transparent 52%),
+        radial-gradient(3px 3px at 90% 40%, #fff 50%, transparent 52%),
+        radial-gradient(2px 2px at 20% 90%, #fff 50%, transparent 52%),
+        radial-gradient(3px 3px at 80% 15%, #fff 50%, transparent 52%);
+    background-size: 100% 50%;
+    opacity: 0.75;
+    animation: snow 14s linear infinite;
+}
+body::after {
+    background-size: 70% 40%;
+    opacity: 0.45;
+    animation-duration: 22s;
+    animation-direction: reverse;
+    filter: blur(1px);
+}
+@keyframes snow {
+    to { transform: translateY(100%); }
+}
+
+/* ---------- Guirlande ---------- */
+.garland {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: space-around;
+    margin: 0 -1.2rem;
+    padding: 0 0.5rem;
+    height: 70px;
+}
+.garland::before { /* le fil */
+    content: "";
+    position: absolute;
+    left: 0; right: 0; top: 6px;
+    height: 24px;
+    border-bottom: 3px solid #1c4a2f;
+    border-radius: 0 0 50% 50% / 0 0 100% 100%;
+}
+.garland span {
+    position: relative;
+    width: 14px;
+    height: 22px;
+    margin-top: 14px;
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    background: var(--c);
+    box-shadow: 0 0 10px 3px var(--c), 0 0 28px 8px color-mix(in srgb, var(--c) 55%, transparent);
+    animation: twinkle 2.4s ease-in-out infinite;
+}
+.garland span::before { /* culot */
+    content: "";
+    position: absolute;
+    top: -6px; left: 3px;
+    width: 8px; height: 7px;
+    background: #2b2f3a;
+    border-radius: 2px;
+}
+.garland span:nth-child(5n+1) { --c: var(--red); }
+.garland span:nth-child(5n+2) { --c: var(--gold); animation-delay: -.5s; }
+.garland span:nth-child(5n+3) { --c: var(--green); animation-delay: -1s; }
+.garland span:nth-child(5n+4) { --c: var(--blue); animation-delay: -1.5s; }
+.garland span:nth-child(5n+5) { --c: var(--pink); animation-delay: -2s; }
+/* effet de courbe : les ampoules du milieu pendent plus bas */
+.garland span:nth-child(2), .garland span:nth-child(9) { margin-top: 24px; }
+.garland span:nth-child(3), .garland span:nth-child(8) { margin-top: 32px; }
+.garland span:nth-child(4), .garland span:nth-child(7) { margin-top: 38px; }
+.garland span:nth-child(5), .garland span:nth-child(6) { margin-top: 40px; }
+
+@keyframes twinkle {
+    0%, 100% { opacity: 1; filter: brightness(1.15); }
+    50%      { opacity: .35; filter: brightness(.7); }
+}
+
+/* ---------- Contenu ---------- */
+main {
+    position: relative;
+    z-index: 2;
+    max-width: 460px;
+    margin: 1rem auto 0;
+}
+
+h1 {
+    text-align: center;
+    font-size: clamp(2rem, 9vw, 2.8rem);
+    font-weight: 800;
+    letter-spacing: .02em;
+    background: linear-gradient(90deg, var(--red), var(--gold), var(--green), var(--blue), var(--pink), var(--red));
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shine 6s linear infinite;
+    filter: drop-shadow(0 0 14px rgba(255, 201, 64, .35));
+}
+@keyframes shine { to { background-position: 300% 0; } }
+
+.subtitle {
+    text-align: center;
+    color: var(--muted);
+    margin: .3rem 0 1.4rem;
+    font-size: .95rem;
+}
+
+/* ---------- Statut ---------- */
+#status-bar {
+    display: flex;
+    align-items: center;
+    gap: .7rem;
+    padding: .8rem 1rem;
+    border-radius: 16px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    margin-bottom: 1.2rem;
+}
+.dot {
+    flex: none;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--red);
+    box-shadow: 0 0 10px var(--red);
+}
+body.connected .dot {
+    background: var(--green);
+    box-shadow: 0 0 12px var(--green);
+    animation: pulse 1.6s ease-in-out infinite;
+}
+@keyframes pulse { 50% { transform: scale(1.35); } }
+#status { font-size: .95rem; }
+
+/* ---------- Cartes ---------- */
+.card {
+    padding: 1.1rem;
+    margin-bottom: 1.1rem;
+    border-radius: 22px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, .35);
+}
+.card h2 {
+    font-size: .8rem;
+    text-transform: uppercase;
+    letter-spacing: .15em;
+    color: var(--muted);
+    margin-bottom: .9rem;
+}
+.row { display: flex; gap: .7rem; }
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .7rem; }
+
+/* ---------- Boutons ---------- */
+button {
+    --c: var(--blue);
+    flex: 1;
+    appearance: none;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 700;
+    color: var(--text);
+    padding: .95rem .8rem;
+    border-radius: 16px;
+    border: 1px solid color-mix(in srgb, var(--c) 70%, transparent);
+    background: linear-gradient(180deg, color-mix(in srgb, var(--c) 30%, transparent), color-mix(in srgb, var(--c) 8%, transparent));
+    box-shadow: 0 0 14px color-mix(in srgb, var(--c) 35%, transparent), inset 0 1px 0 rgba(255, 255, 255, .2);
+    transition: transform .15s, box-shadow .25s, filter .25s;
+    -webkit-tap-highlight-color: transparent;
+}
+button:hover { box-shadow: 0 0 26px var(--c), inset 0 1px 0 rgba(255, 255, 255, .3); filter: brightness(1.15); }
+button:active { transform: scale(.94); }
+button:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+button.big {
+    width: 100%;
+    font-size: 1.05rem;
+    padding: 1.15rem;
+    --c: var(--gold);
+}
+.red    { --c: var(--red); }
+.green  { --c: var(--green); }
+.gold   { --c: var(--gold); }
+.blue   { --c: var(--blue); }
+.pink   { --c: var(--pink); }
+.off    { --c: #8a94ad; }
+
+/* bouton "aléatoire" arc-en-ciel */
+.rainbow {
+    border: none;
+    background: linear-gradient(120deg, var(--red), var(--gold), var(--green), var(--blue), var(--pink), var(--red));
+    background-size: 300% 100%;
+    color: #0a0f24;
+    animation: shine 5s linear infinite;
+    box-shadow: 0 0 22px rgba(255, 201, 64, .5);
+}
+
+footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: .8rem;
+    margin-top: 1.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; }
+}

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#050b1f">
+    <title>Guirlande de Noël</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="icon.png">
+    <link rel="stylesheet" href="style.css?v=3">
+    <script defer src="app.js"></script>
+</head>
+
+<body>
+    <div class="garland" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span>
+    </div>
+
+    <main>
+        <h1>Guirlande de Noël</h1>
+        <p class="subtitle">Pilotez vos lumières en Bluetooth</p>
+
+        <div id="status-bar">
+            <span class="dot"></span>
+            <span id="status">Non connecté</span>
+        </div>
+
+        <section class="card">
+            <h2>Connexion</h2>
+            <div class="row">
+                <button class="blue" onclick="pair()">Appairer</button>
+                <button class="green" onclick="connect()">Connecter</button>
+                <button class="off" onclick="disconnect()">Déconnecter</button>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>Mode</h2>
+            <button class="big rainbow" onclick="sendCmd('guirlande')">✨ Guirlande multicolore</button>
+        </section>
+
+        <section class="card">
+            <h2>Couleur unie</h2>
+            <div class="grid">
+                <button class="red" onclick="sendCmd('rouge')">Rouge</button>
+                <button class="green" onclick="sendCmd('vert')">Vert</button>
+                <button class="blue" onclick="sendCmd('bleu')">Bleu</button>
+                <button class="gold" onclick="sendCmd('jaune')">Jaune</button>
+                <button class="orange" onclick="sendCmd('orange')">Orange</button>
+                <button class="violet" onclick="sendCmd('violet')">Violet</button>
+                <button class="white" onclick="sendCmd('blanc')">Blanc</button>
+                <button class="off" onclick="sendCmd('off')">Éteindre</button>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>Luminosité <span id="lum-value">15 %</span></h2>
+            <input id="lum" type="range" min="0" max="100" step="5" value="15" aria-label="Luminosité">
+        </section>
+
+        <footer>🎄 Joyeux Noël 🎄</footer>
+    </main>
+</body>
+
+</html>
